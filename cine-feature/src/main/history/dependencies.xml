@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.6.0" name="ticket-new-feature">
+    <feature version="0.0.0">
+        <bundle>mvn:org.book/database/1.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.book/exception/1.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.book/initiator/1.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.book/restaurant/1.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.book/shared-module/1.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.book/user/1.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.book/validator/1.0-SNAPSHOT</bundle>
+    </feature>
+</features>

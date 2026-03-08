@@ -11,20 +11,15 @@
     </parent>
 
     <artifactId>exception</artifactId>
-    <packaging>bundle</packaging>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+    </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <configuration>
-                    <instructions>
-                        <Bundle-Activator>org.cine.exception.ExceptionActivator</Bundle-Activator>
-                        <Export-Package>org.cine.exception.*</Export-Package>
-                    </instructions>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 </project>

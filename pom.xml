@@ -3,20 +3,19 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.4</version>
+        <relativePath/>
+    </parent>
+
     <groupId>org.cine</groupId>
     <artifactId>book-my-show</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-
-    <modules>
-        <module>user</module>
-        <module>booking</module>
-        <module>commons</module>
-        <module>exception</module>
-        <module>database</module>
-        <module>server</module>
-        <module>cine-feature</module>
-    </modules>
+    <name>Book My Show</name>
+    <description>Movie Ticket Booking System with Spring Boot</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -24,69 +23,47 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.22.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>osgi.core</artifactId>
-            <version>8.0.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-    </dependencies>
+    <modules>
+        <module>exception</module>
+        <module>commons</module>
+        <module>database</module>
+        <module>user</module>
+        <module>booking</module>
+        <module>server</module>
+    </modules>
 
     <dependencyManagement>
         <dependencies>
-
             <dependency>
-                <groupId>org.postgresql</groupId>
-                <artifactId>postgresql</artifactId>
-                <version>42.7.1</version>
+                <groupId>org.cine</groupId>
+                <artifactId>commons</artifactId>
+                <version>${project.version}</version>
             </dependency>
-
             <dependency>
-                <groupId>com.fasterxml.jackson.jaxrs</groupId>
-                <artifactId>jackson-jaxrs-json-provider</artifactId>
-                <version>2.14.1</version>
+                <groupId>org.cine</groupId>
+                <artifactId>exception</artifactId>
+                <version>${project.version}</version>
             </dependency>
-
             <dependency>
-                <groupId>jakarta.ws.rs</groupId>
-                <artifactId>jakarta.ws.rs-api</artifactId>
-                <version>2.1.6</version>
+                <groupId>org.cine</groupId>
+                <artifactId>database</artifactId>
+                <version>${project.version}</version>
             </dependency>
-
             <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-                <version>3.5.5</version>
+                <groupId>org.cine</groupId>
+                <artifactId>user</artifactId>
+                <version>${project.version}</version>
             </dependency>
-
             <dependency>
-                <groupId>org.hibernate.validator</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>8.0.1.Final</version>
+                <groupId>org.cine</groupId>
+                <artifactId>booking</artifactId>
+                <version>${project.version}</version>
             </dependency>
-
-            <dependency>
-                <groupId>jakarta.validation</groupId>
-                <artifactId>jakarta.validation-api</artifactId>
-                <version>3.0.2</version>
-            </dependency>
-
             <dependency>
                 <groupId>org.glassfish.expressly</groupId>
                 <artifactId>expressly</artifactId>
                 <version>5.0.0</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 
@@ -94,29 +71,16 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.felix</groupId>
-                    <artifactId>maven-bundle-plugin</artifactId>
-                    <version>5.1.9</version>
-                    <extensions>true</extensions>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.karaf.tooling</groupId>
-                    <artifactId>karaf-maven-plugin</artifactId>
-                    <version>4.4.3</version>
-                    <extensions>true</extensions>
-                    <executions>
-                        <execution>
-                            <id>feature-generation</id>
-                            <phase>generate-resources</phase>
-                            <goals>
-                                <goal>features-generate-descriptor</goal>
-                            </goals>
-                            <configuration>
-                                <includeTransitiveDependency>true</includeTransitiveDependency>
-                                <markTransitiveAsDependency>true</markTransitiveAsDependency>
-                            </configuration>
-                        </execution>
-                    </executions>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.11.0</version>
+                    <configuration>
+                        <release>${java.version}</release>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

@@ -1,12 +1,12 @@
 package org.cine.user.controller;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import org.cine.user.model.UserLoginDetails;
 import org.cine.user.model.UserProfileUpdateDetails;
@@ -22,34 +22,14 @@ import org.cine.user.model.User;
  * @author Muthu kumar V
  * @version 1.0
  */
-@Path("/user")
-public final class UserController {
+@RestController
+@RequestMapping("/user")
+public class UserController {
 
     private final UserService userService;
 
-    private UserController() {
+    public UserController() {
         userService = UserServiceImpl.getInstance();
-    }
-
-    /**
-     * <p>
-     *  Creates the instance of the class
-     * </p>
-     */
-    private static class InstanceHolder {
-
-        private static final UserController USER_CONTROLLER = new UserController();
-    }
-
-    /**
-     * <p>
-     * Gets the object of the user controller class.
-     * </p>
-     *
-     * @return The user controller object
-     */
-    public static UserController getInstance() {
-        return InstanceHolder.USER_CONTROLLER;
     }
 
     /**
@@ -58,12 +38,10 @@ public final class UserController {
      * </p>
      *
      * @param user Represents the {@link User}
-     * @return byte array of json response
+     * @return JSON response
      */
-    @POST
-    @Consumes("application/json")
-    @Produces("application/json")
-    public byte[] createUserProfile(final User user) {
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public byte[] createUserProfile(@RequestBody final User user) {
         return userService.createUserProfile(user).asBytes();
     }
 
@@ -73,13 +51,10 @@ public final class UserController {
      * </p>
      *
      * @param userLoginDetails Represents the instance of user login dto
-     * @return byte array of json response
+     * @return JSON response
      */
-    @Path("/login")
-    @POST
-    @Consumes("application/json")
-    @Produces("application/json")
-    public byte[] userLogin(final UserLoginDetails userLoginDetails) {
+    @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
+    public byte[] userLogin(@RequestBody final UserLoginDetails userLoginDetails) {
         return userService.loginUser(userLoginDetails).asBytes();
     }
 
@@ -88,13 +63,11 @@ public final class UserController {
      * Gets the user if the id matches.
      * </p>
      *
-     * @param userId Represents the password of the current user
-     * @return byte array of json response
+     * @param userId Represents the id of the user
+     * @return JSON response
      */
-    @Path("/{userId}")
-    @GET
-    @Produces("application/json")
-    public byte[] getUserById(@PathParam("userId") final long userId) {
+    @GetMapping(value = "/{userId}", produces = "application/json")
+    public byte[] getUserById(@PathVariable("userId") final long userId) {
         return userService.getUserById(userId).asBytes();
     }
 
@@ -104,12 +77,10 @@ public final class UserController {
      * </p>
      *
      * @param userProfileUpdateDetails Represents the instance of user profile update dto
-     * @return byte array of json response
+     * @return JSON response
      */
-    @PUT
-    @Consumes("application/json")
-    @Produces("application/json")
-    public byte[] updateUserData(final UserProfileUpdateDetails userProfileUpdateDetails) {
+    @PutMapping(consumes = "application/json", produces = "application/json")
+    public byte[] updateUserData(@RequestBody final UserProfileUpdateDetails userProfileUpdateDetails) {
         return userService.updateUserProfile(userProfileUpdateDetails).asBytes();
     }
 }

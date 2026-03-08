@@ -10,63 +10,54 @@
     </parent>
 
     <artifactId>booking</artifactId>
-    <packaging>bundle</packaging>
+    <packaging>jar</packaging>
 
     <dependencies>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.ws.rs</groupId>
-            <artifactId>jakarta.ws.rs-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
 
         <dependency>
             <groupId>org.cine</groupId>
             <artifactId>commons</artifactId>
             <version>${project.parent.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.cine</groupId>
             <artifactId>exception</artifactId>
             <version>${project.parent.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.cine</groupId>
             <artifactId>database</artifactId>
             <version>${project.parent.version}</version>
-            <scope>provided</scope>
+        </dependency>
+
+        <!-- Spring Boot Starters -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JSON Processing -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <!-- Validation -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
         </dependency>
 
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <configuration>
-                    <instructions>
-                        <Bundle-Activator>org.cine.booker.BookingActivator</Bundle-Activator>
-                        <Export-Package>org.cine.booker.*</Export-Package>
-                    </instructions>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 </project>

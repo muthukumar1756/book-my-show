@@ -1,9 +1,9 @@
 package org.cine.booker.controller;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import org.cine.booker.service.MovieScheduleService;
 import org.cine.booker.service.internal.impl.MovieScheduleServiceImpl;
@@ -17,34 +17,14 @@ import org.cine.booker.service.internal.impl.MovieScheduleServiceImpl;
  * @author Muthu kumar V
  * @version 1.0
  */
-@Path("/schedule")
-public final class MovieScheduleController {
+@RestController
+@RequestMapping("/schedule")
+public class MovieScheduleController {
 
     private final MovieScheduleService movieScheduleService;
 
-    private MovieScheduleController() {
+    public MovieScheduleController() {
         movieScheduleService = MovieScheduleServiceImpl.getInstance();
-    }
-
-    /**
-     * <p>
-     *  Creates the instance of the class
-     * </p>
-     */
-    private static class InstanceHolder {
-
-        private static final MovieScheduleController MOVIE_SCHEDULE_CONTROLLER = new MovieScheduleController();
-    }
-
-    /**
-     * <p>
-     * Gets the instance movie schedule controller.
-     * </p>
-     *
-     * @return The movie schedule controller object
-     */
-    public static MovieScheduleController getInstance() {
-        return InstanceHolder.MOVIE_SCHEDULE_CONTROLLER;
     }
 
     /**
@@ -54,9 +34,7 @@ public final class MovieScheduleController {
      *
      * @return The list of movie schedules
      */
-    @Path("/shows")
-    @GET
-    @Produces("application/json")
+    @GetMapping(value = "/shows", produces = "application/json")
     public byte[] getAll() {
         return movieScheduleService.getAllMovieSchedule().asBytes();
     }
@@ -68,10 +46,8 @@ public final class MovieScheduleController {
      *
      * @return The list of seat information
      */
-    @Path("/{movieScheduleId}")
-    @GET
-    @Produces("application/json")
-    public byte[] getAvailableSeats(@PathParam("movieScheduleId") final long movieScheduleId) {
+    @GetMapping(value = "/{movieScheduleId}", produces = "application/json")
+    public byte[] getAvailableSeats(@PathVariable("movieScheduleId") final long movieScheduleId) {
         return movieScheduleService.getSeatInfo(movieScheduleId).asBytes();
     }
 }

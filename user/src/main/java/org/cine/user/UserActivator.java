@@ -1,42 +1,18 @@
 package org.cine.user;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import org.osgi.framework.BundleActivator;
-import org.osgi.framework.BundleContext;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  * <p>
- *  Customizes the starting and stopping of a bundle.
+ *  User Module Configuration - replaces OSGi Bundle Activator.
  * </p>
  *
  * @author Muthu kumar V
  * @version 1.0
  */
-public final class UserActivator implements BundleActivator {
-
-    private static final Logger LOGGER = LogManager.getLogger(UserActivator.class);
-
-    /**
-     * <p>
-     * Invoked when the bundle is started.
-     * </p>
-     *
-     * @param context The execution context of the bundle being started.
-     */
-    public void start(BundleContext context) {
-        LOGGER.info("Starting the bundle");
-    }
-
-    /**
-     * <p>
-     * Invoked when the bundle is stopped.
-     * </p>
-     *
-     * @param context The execution context of the bundle being stopped.
-     */
-    public void stop(BundleContext context) {
-        LOGGER.info("Stopping the bundle");
-    }
+@Configuration
+@ComponentScan(basePackages = "org.cine.user")
+public class UserActivator {
 }
+

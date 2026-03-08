@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 import org.cine.common.exception.JacksonDataConversionException;
 
@@ -108,16 +107,5 @@ public final class JsonFactory {
      */
     public JsonArray createArrayNode() {
         return new JsonArray(objectMapper.createArrayNode());
-    }
-
-    /**
-     * <p>
-     * Gets the jackson json provider.
-     * </p>
-     *
-     * @return Jackson json provider
-     */
-    public JacksonJsonProvider getJsonProvider() {
-        return new JacksonJsonProvider();
     }
 }

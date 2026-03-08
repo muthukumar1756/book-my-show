@@ -1,10 +1,10 @@
 package org.cine.booker.controller;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.Consumes;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import org.cine.booker.service.MovieService;
 import org.cine.booker.service.internal.impl.MovieServiceImpl;
@@ -19,34 +19,14 @@ import org.cine.booker.model.movie.filter.MovieFilter;
  * @author Muthu kumar V
  * @version 1.0
  */
-@Path("/movie")
-public final class MovieController {
+@RestController
+@RequestMapping("/movie")
+public class MovieController {
 
     private final MovieService movieService;
 
-    private MovieController() {
+    public MovieController() {
         movieService = MovieServiceImpl.getInstance();
-    }
-
-    /**
-     * <p>
-     *  Creates the instance of the class
-     * </p>
-     */
-    private static class InstanceHolder {
-
-        private static final MovieController MOVIE_CONTROLLER = new MovieController();
-    }
-
-    /**
-     * <p>
-     * Gets the instance of movie controller object.
-     * </p>
-     *
-     * @return The movie controller object
-     */
-    public static MovieController getInstance() {
-        return InstanceHolder.MOVIE_CONTROLLER;
     }
 
     /**
@@ -56,8 +36,7 @@ public final class MovieController {
      *
      * @return The list of movies
      */
-    @GET
-    @Produces("application/json")
+    @GetMapping(produces = "application/json")
     public byte[] getMovies() {
         return movieService.getMovies().asBytes();
     }
@@ -69,11 +48,8 @@ public final class MovieController {
      *
      * @return The list of filtered movies
      */
-    @Path("/filtered")
-    @GET
-    @Consumes("application/json")
-    @Produces("application/json")
-    public byte[] getFilteredMovies(final MovieFilter movieFilter) {
+    @GetMapping(value = "/filtered", consumes = "application/json", produces = "application/json")
+    public byte[] getFilteredMovies(@RequestBody final MovieFilter movieFilter) {
         return movieService.getFilteredMovies(movieFilter).asBytes();
     }
 
@@ -84,9 +60,7 @@ public final class MovieController {
      *
      * @return The list of filters
      */
-    @Path("/filters")
-    @GET
-    @Produces("application/json")
+    @GetMapping(value = "/filters", produces = "application/json")
     public byte[] getFilters() {
         return movieService.getFilters().asBytes();
     }
@@ -99,11 +73,8 @@ public final class MovieController {
      * @param filterType Represents the type of filter
      * @return The List of filter values
      */
-    @Path("filters/{filterType}")
-    @GET
-    @Consumes("application/json")
-    @Produces("application/json")
-    public byte[] getFilterValues(@PathParam("filterType") final String filterType) {
+    @GetMapping(value = "/filters/{filterType}", consumes = "application/json", produces = "application/json")
+    public byte[] getFilterValues(@PathVariable("filterType") final String filterType) {
         return movieService.getFilterValues(filterType).asBytes();
     }
 }
